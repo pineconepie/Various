@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Guide: Exploring LLM Capabilities</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+        }
+        .content-panel {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .content-panel.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .nav-item {
+            transition: all 0.2s ease-in-out;
+        }
+        .nav-item.active {
+            background-color: #e2e8f0; /* slate-200 */
+            border-color: #3b82f6; /* blue-500 */
+            color: #1e293b; /* slate-800 */
+        }
+        .nav-item .step-circle {
+            transition: all 0.2s ease-in-out;
+        }
+        .nav-item.active .step-circle {
+            background-color: #3b82f6; /* blue-500 */
+            color: white;
+        }
+        .link-button {
+            display: inline-block;
+            margin-top: 0.5rem;
+            padding: 0.5rem 1rem;
+            background-color: #3b82f6; /* blue-500 */
+            color: white;
+            text-decoration: none;
+            border-radius: 0.375rem; /* rounded-md */
+            font-weight: 500;
+            transition: background-color 0.2s ease-in-out;
+        }
+        .link-button:hover {
+            background-color: #2563eb; /* blue-600 */
+        }
+    </style>
+</head>
+<body class="text-slate-700">
+
+    <nav class="bg-slate-800 p-4 shadow-md">
+        <div class="container mx-auto flex justify-center space-x-8">
+            </div>
+    </nav>
+
+    <div class="container mx-auto max-w-7xl px-4 py-8 md:py-12">
+        <header class="text-center mb-10 md:mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold text-slate-800 mb-2">Interactive Guide to LLM Capabilities</h1>
+            <p class="text-lg text-slate-600 max-w-3xl mx-auto">This guide provides a series of hands-on activities to explore the features of large language models using NotebookLM. Please select an activity from the navigation to begin. Each activity's "Objective" explains its purpose and what you'll learn. For each activity, a preloaded NotebookLM notebook is provided to get you started quickly.</p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+
+            <aside class="md:col-span-4 lg:col-span-3">
+                <nav class="sticky top-8">
+                    <ol id="stepper-nav" role="tablist" class="space-y-2">
+                        <li>
+                            <a href="#" id="tab-1" role="tab" aria-controls="activity-1" aria-selected="true" class="nav-item group flex items-center w-full p-3 text-left border-l-4 border-slate-200 hover:bg-slate-100 active" data-target="activity-1">
+                                <span class="step-circle mr-4 flex h-8 w-8 items-center justify-center rounded-full bg-slate-200 text-slate-600 group-hover:bg-slate-300">1</span>
+                                <span class="font-medium text-slate-700">Qualitative Analysis</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" id="tab-2" role="tab" aria-controls="activity-2" aria-selected="false" class="nav-item group flex items-center w-full p-3 text-left border-l-4 border-slate-200 hover:bg-slate-100" data-target="activity-2">
+                                <span class="step-circle mr-4 flex h-8 w-8 items-center justify-center rounded-full bg-slate-200 text-slate-600 group-hover:bg-slate-300">2</span>
+                                <span class="font-medium text-slate-700">Interpret Handwritten Notes</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" id="tab-3" role="tab" aria-controls="activity-3" aria-selected="false" class="nav-item group flex items-center w-full p-3 text-left border-l-4 border-slate-200 hover:bg-slate-100" data-target="activity-3">
+                                <span class="step-circle mr-4 flex h-8 w-8 items-center justify-center rounded-full bg-slate-200 text-slate-600 group-hover:bg-slate-300">3</span>
+                                <span class="font-medium text-slate-700">Draft Reports</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" id="tab-4" role="tab" aria-controls="activity-4" aria-selected="false" class="nav-item group flex items-center w-full p-3 text-left border-l-4 border-slate-200 hover:bg-slate-100" data-target="activity-4">
+                                <span class="step-circle mr-4 flex h-8 w-8 items-center justify-center rounded-full bg-slate-200 text-slate-600 group-hover:bg-slate-300">4</span>
+                                <span class="font-medium text-slate-700">Read Technical Docs</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" id="tab-5" role="tab" aria-controls="activity-5" aria-selected="false" class="nav-item group flex items-center w-full p-3 text-left border-l-4 border-slate-200 hover:bg-slate-100" data-target="activity-5">
+                                <span class="step-circle mr-4 flex h-8 w-8 items-center justify-center rounded-full bg-slate-200 text-slate-600 group-hover:bg-slate-300">5</span>
+                                <span class="font-medium text-slate-700">Multimodal Learning</span>
+                            </a>
+                        </li>
+                    </ol>
+                </nav>
+            </aside>
+
+            <main class="md:col-span-8 lg:col-span-9">
+                <div id="content-container">
+                    <div id="activity-1" role="tabpanel" aria-labelledby="tab-1" class="content-panel bg-white p-6 sm:p-8 rounded-lg shadow-md active">
+                        <h2 class="text-2xl font-bold text-slate-800 mb-6">1. Qualitative Analysis for Research</h2>
+                        
+                        <div class="space-y-6">
+                            <div>
+                                <h3 class="text-lg font-semibold text-slate-700 mb-2">Objective</h3>
+                                <p>Observe how NotebookLM can assist in identifying themes across multiple documents and connect them to source material.</p>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-slate-700 mb-2">Instructions</h3>
+                                <ul class="list-disc list-outside space-y-2 pl-5">
+                                    <li>You can use your own documents or start with this preloaded NotebookLM notebook:
+                                        <a href="https://notebooklm.google.com/notebook/9b14bd59-216c-4508-9cba-6978d983c5a9" target="_blank" rel="noopener noreferrer" class="link-button">Open Activity 1 Notebook</a>
+                                    </li>
+                                    <li>If using your own, upload a series of documents (e.g., transcripts, survey responses, or articles) into a NotebookLM notebook. The example uses 64 YouTube videos.</li>
+                                    <li>In the Chat for this Notebook, use the following prompt: <code class="text-sm bg-slate-100 text-slate-800 rounded px-2 py-1">"Identify key themes in these documents. A theme should be drawn from at least 3 pieces of supporting evidence from the sources, and supporting evidence must be cited."</code></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-slate-700 mb-2">Reflection</h3>
+                                <blockquote class="border-l-4 border-blue-300 bg-blue-50 p-4 rounded-r-lg">
+                                    <ul class="list-disc list-outside space-y-2 pl-5 text-slate-800">
+                                        <li>Review the themes identified by NotebookLM. How well does it connect the themes to the source documents?</li>
+                                        <li>Consider what context might be missing from the analysis.</li>
+                                        <li>Try adding or removing documents to see how the identified themes change.</li>
+                                        <li>Evaluate the accuracy of the citations provided by NotebookLM.</li>
+                                    </ul>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="activity-2" role="tabpanel" aria-labelledby="tab-2" class="content-panel bg-white p-6 sm:p-8 rounded-lg shadow-md">
+                        <h2 class="text-2xl font-bold text-slate-800 mb-6">2. Interpret Handwritten Notes</h2>
+                        <div class="space-y-6">
+                            <div>
+                                <h3 class="text-lg font-semibold text-slate-700 mb-2">Objective</h3>
+                                <p>Observe NotebookLM's ability to process handwritten notes and images, and to test its accuracy in extracting specific information.</p>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-slate-700 mb-2">Instructions</h3>
+                                <ul class="list-disc list-outside space-y-2 pl-5">
+                                    <li>You can use your own handwritten document image or start with this preloaded NotebookLM notebook:
+                                        <a href="https://notebooklm.google.com/notebook/aea979bd-5708-42db-8490-286095dbf62a" target="_blank" rel="noopener noreferrer" class="link-button">Open Activity 2 Notebook</a>
+                                    </li>
+                                    <li>If using your own, upload an image of a handwritten document to a NotebookLM notebook. The example uses a handwritten filing to the US Supreme Court.</li>
+                                    <li>In the Chat for this Notebook, ask a specific question about the content of the document. For example: <code class="text-sm bg-slate-100 text-slate-800 rounded px-2 py-1">"What is the last full sentence on page 2 of the source document? By last full sentence I mean the last sentence that begins and ends on page 2."</code></li>
+                                    <li>Note that NotebookLM may sometimes provide an incorrect answer (hallucinate) or state it cannot answer the question.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-slate-700 mb-2">Reflection</h3>
+                                <blockquote class="border-l-4 border-blue-300 bg-blue-50 p-4 rounded-r-lg">
+                                    <ul class="list-disc list-outside space-y-2 pl-5 text-slate-800">
+                                        <li>Consider the technical limitations for reading handwritten documents.</li>
+                                        <li>Try asking about visual elements, for example: "Where is red ink on this document?"</li>
+                                        <li>If NotebookLM provides an answer, critically evaluate its accuracy by comparing it to the source document. If it cannot answer, consider why that might be.</li>
+                                        <li>Think about how the clarity of handwriting might affect NotebookLM's performance.</li>
+                                    </ul>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="activity-3" role="tabpanel" aria-labelledby="tab-3" class="content-panel bg-white p-6 sm:p-8 rounded-lg shadow-md">
+                        <h2 class="text-2xl font-bold text-slate-800 mb-6">3. Draft Reports and Documentation</h2>
+                        <div class="space-y-6">
+                             <div>
+                                <h3 class="text-lg font-semibold text-slate-700 mb-2">Objective</h3>
+                                <p>Observe how NotebookLM can synthesize information from multiple sources to generate a comparative report.</p>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-slate-700 mb-2">Instructions</h3>
+                                <ul class="list-disc list-outside space-y-2 pl-5">
+                                     <li>You can use your own documents for comparison or start with this preloaded NotebookLM notebook:
+                                        <a href="https://notebooklm.google.com/notebook/1fa243be-b183-4c46-9d5d-5f9e9f98c9f4" target="_blank" rel="noopener noreferrer" class="link-button">Open Activity 3 Notebook</a>
+                                    </li>
+                                    <li>If using your own, upload at least two documents that you want to compare (e.g., employee handbooks from different organizations). The example uses employee handbooks from Amherst College and Hampshire College.</li>
+                                    <li>In the Chat for this Notebook, use the following prompt: <code class="text-sm bg-slate-100 text-slate-800 rounded px-2 py-1">"Generate a report which identifies the similarities and differences between [Document 1 name] and [Document 2 name]."</code></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-slate-700 mb-2">Reflection</h3>
+                                <blockquote class="border-l-4 border-blue-300 bg-blue-50 p-4 rounded-r-lg">
+                                    <ul class="list-disc list-outside space-y-2 pl-5 text-slate-800">
+                                        <li>Review the generated report. How accurately does it identify similarities and differences based on the provided sources?</li>
+                                        <li>Consider how different prompts might steer the generated output. For example, how might asking for "key differences" versus a general "comparison" change the result?</li>
+                                        <li>Examine the structure and coherence of the report generated by NotebookLM.</li>
+                                    </ul>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="activity-4" role="tabpanel" aria-labelledby="tab-4" class="content-panel bg-white p-6 sm:p-8 rounded-lg shadow-md">
+                        <h2 class="text-2xl font-bold text-slate-800 mb-6">4. Read Technical Documentation</h2>
+                        <div class="space-y-6">
+                            <div>
+                                <h3 class="text-lg font-semibold text-slate-700 mb-2">Objective</h3>
+                                <p>Observe how NotebookLM can be used to quickly find relevant information within lengthy technical documentation.</p>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-slate-700 mb-2">Instructions</h3>
+                                <ul class="list-disc list-outside space-y-2 pl-5">
+                                    <li>You can use your own technical document or start with this preloaded NotebookLM notebook:
+                                        <a href="https://notebooklm.google.com/notebook/e84d87b7-9bc5-4c96-a337-6b5bd5886562" target="_blank" rel="noopener noreferrer" class="link-button">Open Activity 4 Notebook</a>
+                                    </li>
+                                    <li>If using your own, upload a piece of technical documentation (e.g., a user manual) to a NotebookLM notebook. The example uses a 122-page user manual for a ThinkPad.</li>
+                                    <li>In the Chat for this Notebook, ask a specific question about the product's features or functionalities based on the manual. For example: <code class="text-sm bg-slate-100 text-slate-800 rounded px-2 py-1">"I have a smart card with a slit. Is this supported?"</code></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-slate-700 mb-2">Reflection</h3>
+                                <blockquote class="border-l-4 border-blue-300 bg-blue-50 p-4 rounded-r-lg">
+                                    <ul class="list-disc list-outside space-y-2 pl-5 text-slate-800">
+                                        <li>Assess how effectively NotebookLM draws from the provided source to answer your question.</li>
+                                        <li>Consider whether the outputs are complete. Does NotebookLM provide all relevant information, or does it miss important details or context from the manual?</li>
+                                        <li>Think about the types of questions for which this feature would be most useful (e.g., troubleshooting, feature compatibility, specific instructions).</li>
+                                    </ul>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="activity-5" role="tabpanel" aria-labelledby="tab-5" class="content-panel bg-white p-6 sm:p-8 rounded-lg shadow-md">
+                        <h2 class="text-2xl font-bold text-slate-800 mb-6">5. Multimodal Learning</h2>
+                        <div class="space-y-6">
+                            <div>
+                                <h3 class="text-lg font-semibold text-slate-700 mb-2">Objective</h3>
+                                <p>Observe how NotebookLM can process various information modalities and generate outputs that support multimodal learning, such as Mind Maps.</p>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-slate-700 mb-2">Instructions</h3>
+                                <ul class="list-disc list-outside space-y-2 pl-5">
+                                     <li>You can use your own multimodal sources or start with this preloaded NotebookLM notebook which includes lecture slides:
+                                        <a href="https://notebooklm.google.com/notebook/8bf138ab-09b1-492d-950c-6d30fdbfacad" target="_blank" rel="noopener noreferrer" class="link-button">Open Activity 5 Notebook</a>
+                                    </li>
+                                    <li>If using your own, upload source materials in different formats if available, such as PDFs containing images, or provide links to YouTube videos.</li>
+                                    <li>To generate a Mind Map: In the chat, select the <code class="text-sm bg-slate-100 text-slate-800 rounded px-2 py-1">Mind Map</code> chip. You will find the generated Mind Map as a new note in the “Studio” panel.</li>
+                                    <li>Experiment with other outputs: For instance, after uploading lecture slides, go to the "Studio" tab and create an "Audio Overview."</li>
+                                    <li>Interact with your Mind Map: Zoom in/out, expand/collapse branches, and select nodes to ask questions about specific topics in the chat.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-slate-700 mb-2">Reflection</h3>
+                                <blockquote class="border-l-4 border-blue-300 bg-blue-50 p-4 rounded-r-lg">
+                                    <ul class="list-disc list-outside space-y-2 pl-5 text-slate-800">
+                                        <li>Consider how different output formats (audio, visual like mind maps, textual) might cater to different learning preferences.</li>
+                                        <li>Critically evaluate the usefulness and accuracy of the generated multimodal outputs (e.g., Mind Map, Audio Overview).</li>
+                                        <li>Remember the "Critical Eye" advice: Always ask for permission to use an instructor's materials as sources for NotebookLM if they aren't publicly available. How does this ethical consideration apply to other types of source material?</li>
+                                    </ul>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const navLinks = document.querySelectorAll('#stepper-nav .nav-item');
+            const contentPanels = document.querySelectorAll('#content-container .content-panel');
+
+            function switchTab(targetId) {
+                // Update content panels
+                contentPanels.forEach(panel => {
+                    if (panel.id === targetId) {
+                        panel.classList.add('active');
+                    } else {
+                        panel.classList.remove('active');
+                    }
+                });
+
+                // Update navigation links
+                navLinks.forEach(link => {
+                    if (link.dataset.target === targetId) {
+                        link.classList.add('active');
+                        link.setAttribute('aria-selected', 'true');
+                    } else {
+                        link.classList.remove('active');
+                        link.setAttribute('aria-selected', 'false');
+                    }
+                });
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.dataset.target;
+                    switchTab(targetId);
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
